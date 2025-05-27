@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Machine Learning Skills Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- UI/UX Polish and Flux Gradient -->
+  <style>
+    body {
+      background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      color: #222;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      padding: 40px 30px;
+      overflow: hidden;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #fff;
+      box-shadow: 0 4px 24px #00bcd4aa, 0 0 0 8px #ff4081aa;
+      background: #eee;
+    }
+    .intro {
+      flex: 1;
+    }
+    .intro h1 {
+      font-size: 2.2em;
+      background: linear-gradient(90deg, #00bcd4, #ff4081, #7c3aed, #00bcd4);
+      background-size: 300% 300%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: flux-h1-anim 4s linear infinite;
+      margin: 0 0 10px 0;
+    }
+    @keyframes flux-h1-anim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .intro p {
+      font-size: 1.1em;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    .github-link {
+      display: inline-block;
+      background: linear-gradient(90deg, #333 60%, #24292e 100%);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #0002;
+      transition: background 0.3s;
+      margin-top: 8px;
+    }
+    .github-link:hover {
+      background: linear-gradient(90deg, #24292e 60%, #333 100%);
+      color: #ffd700;
+    }
+    /* Skills Section */
+    .skills-section {
+      margin: 40px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px 60px;
+    }
+    .skills-list {
+      flex: 1 1 320px;
+      min-width: 320px;
+    }
+    .skills-list h2 {
+      margin-bottom: 20px;
+      font-size: 1.4em;
+      color: #00bcd4;
+    }
+    .skill-bar-group {
+      margin-bottom: 20px;
+    }
+    .skill-label {
+      font-weight: 500;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 1em;
+    }
+    .skill-bar-bg {
+      background: #e0e0e0;
+      border-radius: 6px;
+      height: 18px;
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #00bcd4, #ff4081, #7c3aed, #00bcd4);
+      background-size: 200% 100%;
+      animation: flux-bar 3s linear infinite;
+      transition: width 1.2s cubic-bezier(.4,2,.3,1);
+    }
+    @keyframes flux-bar {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Radar Chart */
+    .charts-section {
+      flex: 1 1 320px;
+      min-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .radar-chart-container {
+      width: 320px;
+      height: 320px;
+      background: #f5f7fa;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px #00bcd422;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .radar-chart-label {
+      position: absolute;
+      font-size: 0.95em;
+      color: #333;
+      font-weight: 500;
+      text-align: center;
+      pointer-events: none;
+    }
+    /* Scroll Reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(.4,2,.3,1), transform 0.9s cubic-bezier(.4,2,.3,1);
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: none;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .skills-section {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .radar-chart-container {
+        margin: 0 auto 30px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="scroll-reveal">
+      <img src="assets/photos/photo.jpeg" alt="Profile photo" class="profile-img" loading="lazy" />
+      <div class="intro">
+        <h1>Machine Learning Portfolio</h1>
+        <p>Hi, I'm <b>YESHWANT.G.N</b>. I specialize in Machine Learning, Data Science, and AI. I love building models, visualizations, and solving real-world problems with data.</p>
+        <a class="github-link" href="https://github.com/your-github" target="_blank">View My GitHub</a>
+      </div>
+    </header>
+
+    <div class="skills-section">
+      <!-- Technical Skills Bar Chart -->
+      <div class="skills-list scroll-reveal">
+        <h2>Technical Skills</h2>
+        <div class="skill-bar-group">
+          <div class="skill-label"><span>Python</span><span>90%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-skill="90"></div></div>
+        </div>
+        <div class="skill-bar-group">
+          <div class="skill-label"><span>Machine Learning</span><span>85%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-skill="85"></div></div>
+        </div>
+        <div class="skill-bar-group">
+          <div class="skill-label"><span>Deep Learning</span><span>80%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-skill="80"></div></div>
+        </div>
+        <div class="skill-bar-group">
+          <div class="skill-label"><span>Data Visualization</span><span>75%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-skill="75"></div></div>
+        </div>
+        <div class="skill-bar-group">
+          <div class="skill-label"><span>SQL</span><span>70%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-skill="70"></div></div>
+        </div>
+        <div class="skill-bar-group">
+          <div class="skill-label"><span>TensorFlow</span><span>65%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-skill="65"></div></div>
+        </div>
+      </div>
+      <!-- Radar Chart for Soft Skills -->
+      <div class="charts-section scroll-reveal">
+        <h2 style="color:#ff4081;margin-bottom:18px;">Soft Skills Radar</h2>
+        <div class="radar-chart-container" id="radarChart"></div>
+        <div style="font-size:0.95em;color:#444;text-align:center;">
+          <b>Soft Skills:</b> Communication, Problem Solving, Teamwork, Creativity, Adaptability
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll Reveal & Chart Animation Script -->
+  <script>
+    // Scroll Reveal Animation
+    const revealEls = document.querySelectorAll('.scroll-reveal');
+    const revealOnScroll = () => {
+      for (const el of revealEls) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) {
+          el.classList.add('revealed');
+        }
+      }
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Bar Chart Autofill Animation
+    document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+      const perc = bar.getAttribute('data-skill');
+      bar.style.width = '0';
+      setTimeout(() => {
+        bar.style.width = perc + '%';
+      }, 800);
+    });
+
+    // Radar Chart with Animation
+    function drawRadarChart() {
+  const labels = ['Communication', 'Problem Solving', 'Teamwork', 'Creativity', 'Adaptability'];
+  const values = [85, 90, 80, 75, 70]; // Soft skill percentages
+  const N = labels.length;
+  const size = 300;
+  const radius = size / 2 - 40;
+  const center = size / 2;
+  const svgNS = "http://www.w3.org/2000/svg";
+  const container = document.getElementById('radarChart');
+  container.innerHTML = '';
+
+  // Create SVG element
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+  svg.style.display = 'block';
+  svg.style.margin = '0 auto';
+  container.appendChild(svg);
+
+  // Draw grid polygons
+  for (let level = 1; level <= 5; level++) {
+    const r = (radius * level) / 5;
+    let points = '';
+    for (let i = 0; i < N; i++) {
+      const angle = (2 * Math.PI * i) / N - Math.PI / 2;
+      const x = center + r * Math.cos(angle);
+      const y = center + r * Math.sin(angle);
+      points += `${x},${y} `;
+    }
+    const polygon = document.createElementNS(svgNS, 'polygon');
+    polygon.setAttribute('points', points.trim());
+    polygon.setAttribute('fill', level % 2 ? '#e3e8f0' : '#f5f7fa');
+    polygon.setAttribute('stroke', '#b0b0b0');
+    polygon.setAttribute('stroke-width', '1');
+    svg.appendChild(polygon);
+  }
+
+  // Draw axes and labels
+  for (let i = 0; i < N; i++) {
+    const angle = (2 * Math.PI * i) / N - Math.PI / 2;
+    const x = center + radius * Math.cos(angle);
+    const y = center + radius * Math.sin(angle);
+
+    // Axis line
+    const line = document.createElementNS(svgNS, 'line');
+    line.setAttribute('x1', center);
+    line.setAttribute('y1', center);
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', y);
+    line.setAttribute('stroke', '#b0b0b0');
+    line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+
+    // Label (absolute position in container)
+    const label = document.createElement('div');
+    label.className = 'radar-chart-label';
+    label.style.position = 'absolute';
+    label.style.left = (x - 40) + 'px'; // 80px width, so center horizontally
+    label.style.top = (y - 16) + 'px';  // 32px height, so center vertically
+    label.style.width = '80px';
+    label.style.height = '32px';
+    label.style.textAlign = 'center';
+    label.style.pointerEvents = 'none';
+    label.innerText = labels[i];
+    container.appendChild(label);
+  }
+
+  // Animate radar polygon
+  let progress = 0;
+  function animateRadar() {
+    progress += 0.03;
+    if (progress > 1) progress = 1;
+    let points = '';
+    for (let i = 0; i < N; i++) {
+      const angle = (2 * Math.PI * i) / N - Math.PI / 2;
+      const r = radius * (values[i] / 100) * progress;
+      const x = center + r * Math.cos(angle);
+      const y = center + r * Math.sin(angle);
+      points += `${x},${y} `;
+    }
+    if (!svg.radarPolygon) {
+      const polygon = document.createElementNS(svgNS, 'polygon');
+      polygon.setAttribute('fill', 'rgba(0,188,212,0.25)');
+      polygon.setAttribute('stroke', '#00bcd4');
+      polygon.setAttribute('stroke-width', '3');
+      polygon.setAttribute('points', points.trim());
+      svg.appendChild(polygon);
+      svg.radarPolygon = polygon;
+    } else {
+      svg.radarPolygon.setAttribute('points', points.trim());
+    }
+    if (progress < 1) requestAnimationFrame(animateRadar);
+  }
+  animateRadar();
+}
+
+   window.addEventListener('DOMContentLoaded', drawRadarChart);
+    window.addEventListener('resize', drawRadarChart);
+  </script>
+</body>
+</html>

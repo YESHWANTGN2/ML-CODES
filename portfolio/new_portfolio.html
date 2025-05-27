@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeshwnat GN | Portfolio</title>
+  <!-- Boxicons CDN for social icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset and base styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      background: #181824;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    section { padding: 80px 9% 40px 9%; }
+    h2.section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #00ff99;
+      margin-bottom: 40px;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    /* Animated Bars Background */
+    .bars-animation {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      display: flex;
+      top: 0; left: 0;
+    }
+    .bar {
+      flex: 1;
+      height: 100%;
+      background: #181824;
+      transform: translateY(-100%);
+      animation: showBars 0.5s ease-out forwards;
+      animation-delay: calc(var(--d) * 0.1s);
+    }
+    @keyframes showBars {
+      to { transform: translateY(0%); }
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      position: fixed;
+      left: 0; top: 0;
+      width: 100%;
+      padding: 25px 9%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(24,24,36,0.85);
+      backdrop-filter: blur(4px);
+      transition: background 0.3s;
+    }
+    .logo {
+      font-size: 30px;
+      font-weight: 700;
+      color: #00ff99;
+      letter-spacing: 2px;
+    }
+    .navbar-list {
+      display: flex;
+      list-style: none;
+    }
+    .navbar-list li { margin-left: 35px; }
+    .navbar-list li a {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.5s;
+      position: relative;
+    }
+    .navbar-list li.active a,
+    .navbar-list li a:hover {
+      color: #00ff99;
+    }
+
+    /* Hero Section */
+    .home {
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 110px;
+      padding-bottom: 0;
+    }
+    .home-info { flex: 1; }
+    .home-info h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #00ff99;
+    }
+    .home-info h2 {
+      font-size: 1.7rem;
+      margin-top: 10px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .home-info p {
+      font-size: 1.1rem;
+      margin: 18px 0 30px 0;
+      color: #b3b3b3;
+      line-height: 1.6;
+      max-width: 500px;
+    }
+    .btn-sci {
+      display: flex;
+      align-items: center;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 30px;
+      background: #00ff99;
+      border: 2px solid #00ff99;
+      border-radius: 40px;
+      box-shadow: 0 0 10px #00ff99;
+      font-size: 16px;
+      color: #181824;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.5s;
+      margin-right: 18px;
+    }
+    .btn:hover {
+      background: transparent;
+      color: #00ff99;
+      box-shadow: none;
+    }
+    .sci {
+      display: inline-flex;
+      margin-left: 10px;
+    }
+    .sci a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border: 2px solid #00ff99;
+      border-radius: 50%;
+      font-size: 20px;
+      color: #00ff99;
+      margin: 0 8px;
+      transition: all 0.5s;
+      background: transparent;
+    }
+    .sci a:hover {
+      background: #00ff99;
+      color: #181824;
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    /* Profile Image with Animated Borders */
+    .home-img {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .img-box {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 5px;
+      box-shadow: 0 0 40px #00ff9955;
+    }
+    .img-item {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      align-items: 40px;
+      z-index: 1;
+    }
+    .img-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      mix-blend-mode: lighten;
+      border: 5px solid #181824;
+      background: #222;
+    }
+    .img-box::before,
+    .img-box::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .img-box::before {
+      background: conic-gradient(transparent 10%, #00ff99 90%);
+      animation: rotate 3s linear infinite;
+    }
+    .img-box::after {
+      background: conic-gradient(transparent 30%, #00ff99 70%);
+      animation: rotate 6s linear infinite reverse;
+      opacity: 0.5;
+    }
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    /* SKILLS SECTION */
+    .skills-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .skill {
+      margin-bottom: 25px;
+    }
+    .skill-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: #fff;
+    }
+    .skill-bar-bg {
+      background: #222;
+      border-radius: 30px;
+      height: 22px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 2px 8px #00ff9922;
+    }
+    .skill-bar {
+      height: 100%;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #00ff99, #00e6d6);
+      width: 0;
+      transition: width 1.5s cubic-bezier(.68,-0.55,.27,1.55);
+      box-shadow: 0 0 10px #00ff99bb;
+    }
+    .skill-percentage {
+      float: right;
+      font-size: 0.95rem;
+      color: #00ff99;
+      font-weight: 600;
+      margin-top: -22px;
+      margin-right: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* PROJECTS SECTION */
+    .projects-band {
+      background: linear-gradient(90deg, #00ff99 0%, #00e6d6 100%);
+      padding: 12px 0;
+      text-align: center;
+      color: #181824;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 28px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .project-card {
+      background: #23243a;
+      border-radius: 18px;
+      padding: 28px 22px;
+      box-shadow: 0 2px 14px #00ff9922;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 24px #00ff9933;
+    }
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #00ff99;
+      margin-bottom: 10px;
+    }
+    .project-desc {
+      font-size: 1rem;
+      color: #b3b3b3;
+      margin-bottom: 15px;
+    }
+    .project-links a {
+      color: #00ff99;
+      margin-right: 14px;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+    .project-links a:hover { color: #fff; }
+
+    /* CONTACT SECTION */
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .contact-container input,
+    .contact-container textarea {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #23243a;
+      color: #fff;
+      font-size: 1rem;
+      resize: none;
+    }
+    .contact-container button {
+      width: fit-content;
+      align-self: center;
+      padding: 10px 36px;
+      background: #00ff99;
+      color: #181824;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ff99bb;
+      transition: background 0.3s, color 0.3s;
+    }
+    .contact-container button:hover {
+      background: transparent;
+      color: #00ff99;
+      border: 2px solid #00ff99;
+      box-shadow: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .home { flex-direction: column; text-align: center; }
+      .home-img { margin-top: 36px; }
+      .img-box { width: 220px; height: 220px; }
+    }
+    @media (max-width: 600px) {
+      .navbar { padding: 18px 4%; }
+      section { padding: 60px 4% 30px 4%; }
+      .home-info h1 { font-size: 2rem; }
+      .img-box { width: 140px; height: 140px; }
+      .skills-container, .contact-container { padding: 0 2vw; }
+    }
+  </style>
+  <style>
+    
+    body {
+      background: #181824;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      padding: 40px;
+    }
+    .skills-bar-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #23243a;
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 14px #00ff9922;
+    }
+    
+    .stacked-bar-labels {
+      display: flex;
+      justify-content: initial;
+      font-size: 1.08rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .stacked-bar {
+      display: flex;
+      height: 38px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #222;
+      box-shadow: 0 0 10px #00ff9955;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .bar-segment {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0.97;
+      color: #fff;
+      padding-right: 12px;
+      animation: fillBar 1.5s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+      width: 0;
+    }
+    .bar-python {
+      background: linear-gradient(90deg, #014421, #222 90%);
+      border-top-left-radius: 22px;
+      border-bottom-left-radius: 22px;
+      animation-delay: 0.2s;
+    }
+    .bar-cpp {
+      background: linear-gradient(90deg, #145c32, #222 90%);
+      animation-delay: 0.5s;
+    }
+    .bar-web {
+      background: linear-gradient(90deg, #1a7f4e, #222 90%);
+      border-top-right-radius: 22px;
+      border-bottom-right-radius: 22px;
+      animation-delay: 0.8s;
+    }
+    @keyframes fillBar {
+      to { width: var(--bar-width); }
+    }
+    .stacked-bar-legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 18px;
+      font-size: 1rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .legend-color {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-right: 5px;
+    }
+    .legend-python { background: linear-gradient(90deg, #014421, #222 90%);}
+    .legend-cpp { background: linear-gradient(90deg, #145c32, #222 90%);}
+    .legend-web { background: linear-gradient(90deg, #1a7f4e, #222 90%);}
+    .bar-total-label {
+      text-align: right;
+      color: #00ff99;
+      font-size: 1.08rem;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background Bars -->
+  <div class="bars-animation">
+    <div class="bar" style="--d:8;"></div>
+    <div class="bar" style="--d:7;"></div>
+    <div class="bar" style="--d:6;"></div>
+    <div class="bar" style="--d:5;"></div>
+    <div class="bar" style="--d:4;"></div>
+    <div class="bar" style="--d:3;"></div>
+    <div class="bar" style="--d:2;"></div>
+    <div class="bar" style="--d:1;"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="logo">Yeshwnat GN</a>
+    <ul class="navbar-list">
+      <li class="active"><a href="#home">Home</a></li>
+      <li class="active"><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="home" id="home">
+    <div class="home-info">
+      <h1>Yeshwnat GN</h1>
+      <h2>VLSI Aspirant & AI/ML Engineer</h2>
+      <p>
+        Currently studying at <b>JNN Institute of Engineering</b> and <b>IITG</b>.<br>
+        Passionate about VLSI design, Artificial Intelligence, and Machine Learning.<br>
+        I love building intelligent systems and innovative hardware solutions.
+      </p>
+      <div class="btn-sci">
+        <a href="assets/yeshwnat_cv.pdf" class="btn" download>Download CV</a>
+        <div class="sci">
+          <a href="https://github.com/yeshwnat" target="_blank"><i class='bx bxl-github'></i></a>
+          <a href="https://linkedin.com/in/yeshwnat" target="_blank"><i class='bx bxl-linkedin'></i></a>
+          <a href="https://twitter.com/yeshwnat" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://instagram.com/yeshwnat" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="home-img">
+      <div class="img-box">
+        <div class="img-item">
+          <img src="assets/photos/photo.jpeg" alt="Yeshwnat GN">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ABOUT SECTION -->
+<section id="about" style="background: #1e1f2f; padding: 80px 9% 60px 9%;">
+  <div style="max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+    <div >
+      <div class="home-img">
+      <div class="img-box">
+        <div class="img-item">
+          <img src="assets/photos/photo.jpeg" alt="Yeshwnat GN">
+        </div>
+      </div>
+    </div>
+    </div>
+    <div style="flex:2; min-width: 270px;">
+      <h2 style="color: #00ff99; font-size: 2.4rem; font-weight: 700; margin-bottom: 18px;">About Me</h2>
+      <p style="font-size: 1.15rem; color: #b3b3b3; line-height:1.7; margin-bottom: 12px;">
+        Hi, I'm <b>Yeshwnat GN</b>, a passionate <b>VLSI aspirant</b> and <b>AI/ML engineer</b> currently studying at <b>JNN Institute of Engineering</b> and <b>IITG</b>.
+        <br><br>
+        My journey blends hardware and software, from designing efficient digital circuits to building intelligent algorithms. I thrive on solving complex problems, collaborating with diverse teams, and pushing the boundaries of technology.
+        <br><br>
+        When I'm not coding or designing, you'll find me exploring new tech trends, participating in hackathons, or sharing knowledge with peers.
+      </p>
+      <ul style="color: #00ff99; font-size: 1.05rem; margin-top: 12px;">
+        <li>VLSI Design & Digital Systems</li>
+        <li>AI/ML Model Development</li>
+        <li>Python, C/C++, Verilog</li>
+        <li>Web Development & Automation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-container">
+      <div class="skill">
+        <span class="skill-title">VLSI Design</span>
+        <div class="skill-bar-bg">
+          <div class="skill-bar" data-percent="90"></div>
+        </div>
+        <span class="skill-percentage">90%</span>
+      </div>
+      <div class="skill">
+        <span class="skill-title">Machine Learning</span>
+        <div class="skill-bar-bg">
+          <div class="skill-bar" data-percent="85"></div>
+        </div>
+        <span class="skill-percentage">85%</span>
+      </div>
+      <div class="skill">
+        <span class="skill-title">Verilog / SystemVerilog</span>
+        <div class="skill-bar-bg">
+          <div class="skill-bar" data-percent="80"></div>
+        </div>
+        <span class="skill-percentage">80%</span>
+      </div>
+      <div class="skill">
+        <span class="skill-title">Deep Learning</span>
+        <div class="skill-bar-bg">
+          <div class="skill-bar" data-percent="75"></div>
+        </div>
+        <span class="skill-percentage">75%</span>
+      </div>
+    <div class="skill-title">Programming Skills </div>
+    
+    <div class="stacked-bar">
+      <div class="bar-segment bar-python" style="--bar-width: 60%;" title="Python 60%">60%</div>
+      <div class="bar-segment bar-cpp" style="--bar-width: 20%;" title="C/C++ 20%">20%</div>
+      <div class="bar-segment bar-web" style="--bar-width: 10%;" title="Web Dev 10%">10%</div>
+    </div>
+    <div class="skill-percentage"> 90% </div>
+    <div class="stacked-bar-legend">
+      <div class="legend-item"><span class="legend-color legend-python"></span>Python</div>
+      <div class="legend-item"><span class="legend-color legend-cpp"></span>C/C++</div>
+      <div class="legend-item"><span class="legend-color legend-web"></span>Web Development</div>
+    </div>
+
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="projects-band">PROJECTS</div>
+    <h2 class="section-title">My Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-title">AI-based Fault Detection in VLSI Circuits</div>
+        <div class="project-desc">
+          Developed a machine learning model to detect faults in VLSI circuits, improving detection accuracy by 25%. Used Python, scikit-learn, and Verilog testbenches.
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yeshwnat/vlsi-fault-detection" target="_blank"><i class='bx bxl-github'></i> Code</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Smart Attendance System with Face Recognition</div>
+        <div class="project-desc">
+          Built an automated attendance system using deep learning for face recognition. Integrated with a web dashboard for real-time monitoring.
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yeshwnat/smart-attendance" target="_blank"><i class='bx bxl-github'></i> Code</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">FPGA-based Digital Signal Processing</div>
+        <div class="project-desc">
+          Designed and implemented DSP algorithms on FPGA using Verilog and Xilinx tools, achieving real-time audio processing.
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yeshwnat/fpga-dsp" target="_blank"><i class='bx bxl-github'></i> Code</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">ML-powered Chatbot for Student Queries</div>
+        <div class="project-desc">
+          Created a chatbot using NLP and ML to answer student queries for college administration, deployed on cloud for scalability.
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yeshwnat/student-chatbot" target="_blank"><i class='bx bxl-github'></i> Code</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- SERVICES SECTION WITH VLSI BACKGROUND ANIMATIONS -->
+<section id="services" style="background: #23243a; padding: 80px 9% 60px 9%; position:relative; overflow:hidden; z-index:1;">
+  <!-- --- VLSI THEMED BACKGROUND ANIMATIONS --- -->
+  <!-- 1. Animated Circuit Lines (CSS) -->
+  <div class="circuit-bg">
+    <div class="circuit-line h" style="top:15vh;"></div>
+    <div class="circuit-line h2"></div>
+    <div class="circuit-line h3"></div>
+    <div class="circuit-line v"></div>
+    <div class="circuit-line v2"></div>
+    <div class="circuit-line v3"></div>
+  </div>
+
+  <!-- 2. Particle/Node Network (Canvas) -->
+  <canvas id="particles-bg-services"></canvas>
+
+  <!-- 3. Glitch/Wave Effect (SVG) -->
+  <div class="wave-glitch-bg">
+    <svg viewBox="0 0 1440 320" width="100%" height="320" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradient" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00ff99"/>
+          <stop offset="100%" stop-color="#181824"/>
+        </linearGradient>
+      </defs>
+      <path id="wavePath" fill="url(#waveGradient)" fill-opacity="0.28"
+        d="M0,160 C360,320 1080,0 1440,160 L1440,320 L0,320 Z"></path>
+    </svg>
+  </div>
+
+  <!-- 4. Gradient Spheres/Grid Overlays -->
+  <div class="gradient-spheres-bg">
+    <div class="sphere" style="top:10%; left:80%;"></div>
+    <div class="sphere" style="top:60%; left:15%;"></div>
+    <div class="sphere" style="top:80%; left:70%;"></div>
+    <div class="sphere" style="top:30%; left:40%;"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- SERVICES CONTENT -->
+  <h2 style="color: #00ff99; font-size: 2.4rem; font-weight: 700; text-align:center; margin-bottom: 48px; position:relative; z-index:2;">My Services</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 36px; justify-content: center; max-width: 1100px; margin: 0 auto; position:relative; z-index:2;">
+    <!-- Service 1 -->
+    <div style="background:#1e1f2f; border-radius:18px; flex:1; min-width: 260px; max-width:320px; box-shadow:0 2px 18px #00ff9911; padding:32px 22px; text-align:center;">
+      <img src="assets/photos/ic-chip.jpg" alt="VLSI Design" style="width:70px; height:70px; object-fit:cover; border-radius:12px; margin-bottom:20px;">
+      <h3 style="color:#00ff99; font-size:1.3rem; font-weight:700; margin-bottom:10px;">VLSI Design Consulting</h3>
+      <p style="color:#b3b3b3; font-size:1rem; margin-bottom:0;">
+        Schematic, RTL, and verification for custom digital circuits. From concept to silicon, ensuring efficiency and reliability.
+      </p>
+    </div>
+    <!-- Service 2 -->
+    <div style="background:#1e1f2f; border-radius:18px; flex:1; min-width: 260px; max-width:320px; box-shadow:0 2px 18px #00ff9911; padding:32px 22px; text-align:center;">
+      <img src="assets/photos/aiml.jpeg" alt="AI/ML Solutions" style="width:70px; height:70px; object-fit:cover; border-radius:12px; margin-bottom:20px;">
+      <h3 style="color:#00ff99; font-size:1.3rem; font-weight:700; margin-bottom:10px;">AI & ML Solutions</h3>
+      <p style="color:#b3b3b3; font-size:1rem; margin-bottom:0;">
+        End-to-end machine learning models: data preprocessing, training, deployment, and optimization for real-world impact.
+      </p>
+    </div>
+    <!-- Service 3 -->
+    <div style="background:#1e1f2f; border-radius:18px; flex:1; min-width: 260px; max-width:320px; box-shadow:0 2px 18px #00ff9911; padding:32px 22px; text-align:center;">
+      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Web Development" style="width:70px; height:70px; object-fit:cover; border-radius:12px; margin-bottom:20px;">
+      <h3 style="color:#00ff99; font-size:1.3rem; font-weight:700; margin-bottom:10px;">Web Development</h3>
+      <p style="color:#b3b3b3; font-size:1rem; margin-bottom:0;">
+        Modern, responsive websites and dashboards tailored for startups, researchers, and tech enthusiasts.
+      </p>
+    </div>
+    <!-- Service 4 -->
+    <div style="background:#1e1f2f; border-radius:18px; flex:1; min-width: 320px; max-width:320px; box-shadow:0 2px 18px #00ff9911; padding:32px 22px; text-align:center;">
+      <img src="assets/photos/data-analysis-skills.jpeg" alt="data-analysis-skills" style="width:70px; height:70px; object-fit:cover; border-radius:12px; margin-bottom:20px;">
+      <h3 style="color:#00ff99; font-size:1.3rem; font-weight:700; margin-bottom:10px;">Data Analysis</h3>
+      <p style="color:#b3b3b3; font-size:1rem; margin-bottom:0;">
+         makes sense of your data by organizing, cleaning, and visualizing information to uncover useful patterns and insights. 
+         Whether you need clear charts, basic reports or help understanding your numbers.
+      </p>
+    </div>
+  </div>
+  <style>
+    /* --- VLSI BACKGROUND ANIMATIONS FOR SERVICES SECTION --- */
+#services .circuit-bg,
+#services .gradient-spheres-bg,
+#services .wave-glitch-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+#services .circuit-bg { z-index: 1;}
+#services .wave-glitch-bg { z-index: 2;}
+#services .gradient-spheres-bg { z-index: 3;}
+#services .grid-overlay { z-index: 4;}
+#services .sphere { z-index: 4;}
+#services #particles-bg-services {
+  position: absolute;
+  z-index: 2;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  opacity: 0.22;
+}
+.circuit-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+.circuit-line {
+  position: absolute;
+  background: linear-gradient(90deg, #00ff99 0%, #222 100%);
+  opacity: 0.32;
+  border-radius: 2px;
+  animation: moveLine 4s linear infinite;
+}
+.circuit-line.h { height: 2px; width: 35vw; left: 5vw; animation-delay: 0s; }
+.circuit-line.h2 { top: 30vh; width: 50vw; left: 20vw; height: 2px; animation-delay: 1.5s; }
+.circuit-line.h3 { top: 60vh; width: 60vw; left: 10vw; height: 2px; animation-delay: 3s; }
+.circuit-line.v { width: 2px; height: 35vh; top: 10vh; left: 25vw; animation-delay: 0.8s; }
+.circuit-line.v2 { left: 55vw; height: 45vh; top: 30vh; width: 2px; animation-delay: 2.2s; }
+.circuit-line.v3 { left: 75vw; height: 60vh; top: 20vh; width: 2px; animation-delay: 3.5s; }
+@keyframes moveLine {
+  0% { filter: blur(0px) brightness(1); }
+  50% { filter: blur(2px) brightness(1.4); }
+  100% { filter: blur(0px) brightness(1); }
+}
+
+/* 2. Particle/Node Network */
+#particles-bg {
+  position: fixed;
+  z-index: 1;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  opacity: 0.22;
+}
+
+/* 3. Glitch/Wave Effect */
+.wave-glitch-bg {
+  position: fixed;
+  z-index: 2;
+  width: 100vw;
+  height: 320px;
+  top: 0; left: 0;
+  pointer-events: none;
+  opacity: 0.7;
+  animation: waveMove 7s linear infinite alternate;
+}
+@keyframes waveMove {
+  0% { filter: hue-rotate(0deg) blur(0px);}
+  50% { filter: hue-rotate(30deg) blur(1.5px);}
+  100% { filter: hue-rotate(0deg) blur(0px);}
+}
+
+/* 4. Gradient Spheres/Grid Overlays */
+.gradient-spheres-bg {
+  position: fixed;
+  z-index: 3;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  top: 0; left: 0;
+}
+.sphere {
+  position: absolute;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle at 30% 30%, #00ff99bb 0%, #00e6d688 60%, #222 100%);
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: sphereMove 9s ease-in-out infinite alternate;
+}
+.sphere:nth-child(2) { width: 80px; height: 80px; animation-delay: 2s;}
+.sphere:nth-child(3) { width: 100px; height: 100px; animation-delay: 4s;}
+.sphere:nth-child(4) { width: 70px; height: 70px; animation-delay: 1s;}
+@keyframes sphereMove {
+  0% { transform: translateY(0px) scale(1);}
+  50% { transform: translateY(30px) scale(1.1);}
+  100% { transform: translateY(0px) scale(1);}
+}
+.grid-overlay {
+  position: absolute;
+  width: 100vw; height: 100vh;
+  background-image:
+    linear-gradient(to right, #00ff9911 1px, transparent 1px),
+    linear-gradient(to bottom, #00ff9911 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+</style>
+
+  </style>
+</section>
+
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <div class="contact-container">
+      <p>Let's connect! Feel free to reach out for collaborations or just a friendly hello.</p>
+      <form action="mailto:yeshwnatgn@gmail.com" method="POST" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="sci" style="margin-top: 20px;">
+        <a href="https://github.com/yeshwnat" target="_blank"><i class='bx bxl-github'></i></a>
+        <a href="https://linkedin.com/in/yeshwnat" target="_blank"><i class='bx bxl-linkedin'></i></a>
+        <a href="mailto:yeshwnatgn@gmail.com"><i class='bx bx-envelope'></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ScrollReveal JS CDN -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script>
+    // ScrollReveal Animations
+    ScrollReveal().reveal('.home-info', { origin: 'left', distance: '60px', duration: 1200, delay: 100 });
+    ScrollReveal().reveal('.home-img', { origin: 'right', distance: '60px', duration: 1200, delay: 200 });
+    ScrollReveal().reveal('.skills-container', { origin: 'bottom', distance: '60px', duration: 1200, delay: 200 });
+    ScrollReveal().reveal('.projects-band', { origin: 'top', distance: '30px', duration: 900, delay: 100 });
+    ScrollReveal().reveal('.projects-grid', { origin: 'bottom', distance: '60px', duration: 1200, delay: 200 });
+    ScrollReveal().reveal('.contact-container', { origin: 'bottom', distance: '60px', duration: 1200, delay: 200 });
+
+    // Animated Skill Bars on Scroll
+    function animateSkillBars() {
+      document.querySelectorAll('.skill-bar').forEach(function(bar) {
+        const percent = bar.getAttribute('data-percent');
+        bar.style.width = percent + '%';
+      });
+    }
+    // Animate when skills section is in view
+    let skillsAnimated = false;
+    window.addEventListener('scroll', function() {
+      const skillsSection = document.getElementById('skills');
+      const rect = skillsSection.getBoundingClientRect();
+      if (!skillsAnimated && rect.top < window.innerHeight - 100) {
+        animateSkillBars();
+        skillsAnimated = true;
+      }
+    });
+    // For direct navigation (if already in view)
+    window.addEventListener('DOMContentLoaded', function() {
+      const skillsSection = document.getElementById('skills');
+      const rect = skillsSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        animateSkillBars();
+        skillsAnimated = true;
+      }
+    });
+
+    // Navbar active link highlight
+    const navLinks = document.querySelectorAll('.navbar-list li');
+    window.addEventListener('scroll', () => {
+      let fromTop = window.scrollY + 80;
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        const section = document.querySelector(link.querySelector('a').getAttribute('href'));
+        if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+          link.classList.add('active');
+        }
+      });
+    });
+     window.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('.stacked-bar').style.width = '90%';
+    });
+  </script>
+</body>
+</html>

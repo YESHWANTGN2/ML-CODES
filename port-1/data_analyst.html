@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Analysis Skills Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f4f6fa;
+      margin: 0;
+      padding: 0;
+    }
+    .dashboard-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(60,60,90,0.09);
+      padding: 32px;
+    }
+    h1 {
+      text-align: center;
+      color: #2a3b4c;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #6c7a89;
+      margin-bottom: 40px;
+    }
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 36px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s cubic-bezier(.19,1,.22,1);
+    }
+    .skills-table.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .skills-table th, .skills-table td {
+      padding: 14px 10px;
+      border-bottom: 1px solid #eaeaea;
+      text-align: left;
+    }
+    .skills-table th {
+      background: #f7fafc;
+      color: #2a3b4c;
+      font-weight: 700;
+    }
+    .skills-table td {
+      color: #3d4d5c;
+    }
+    .chart-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 24px auto;
+      background: #f7fafc;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(60,60,90,0.06);
+    }
+    .footer {
+      text-align: center;
+      color: #a0a4a8;
+      font-size: 14px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Data Analysis Skills Dashboard</h1>
+    <div class="subtitle">Core Skills for Modern Data Analysts</div>
+    
+    <div class="chart-container">
+      <canvas id="skillsChart"></canvas>
+    </div>
+    
+    <table class="skills-table" id="skillsTable">
+      <tr>
+        <th>Skilled Area</th>
+        <th>Tools</th>
+      </tr>
+      <tr>
+        <td>SQL</td>
+        <td>MySQL, PostgreSQL, SQL Server</td>
+      </tr>
+      <tr>
+        <td>Spreadsheet Tools</td>
+        <td>Microsoft Excel</td>
+      </tr>
+      <tr>
+        <td>Programming</td>
+        <td>Python</td>
+      </tr>
+      <tr>
+        <td>Data Visualization</td>
+        <td> Power BI, Matplotlib</td>
+      </tr>
+      <tr>
+        <td>Statistics & Mathematics</td>
+        <td>Probability, Hypothesis Testing</td>
+      </tr>
+      <tr>
+        <td>Machine Learning</td>
+        <td>Scikit-learn, TensorFlow (basics)</td>
+      </tr>
+      <tr>
+        <td>Data Cleaning</td>
+        <td>Pandas, OpenRefine</td>
+      </tr>
+      <tr>
+        <td>Critical Thinking</td>
+        <td>Analytical Reasoning</td>
+      </tr>
+      <tr>
+        <td>Communication</td>
+        <td>Reports, Presentations, Storytelling</td>
+      </tr>
+      <tr>
+        <td>Domain Knowledge</td>
+        <td>Industry-specific Understanding</td>
+      </tr>
+    </table>
+    
+    <div class="footer">
+      &copy; 2025 Data Analysis Skills Dashboard
+    </div>
+  </div>
+  
+  <!-- Chart.js for dynamic chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Radar chart with animated auto-fill
+    const ctx = document.getElementById('skillsChart').getContext('2d');
+    const targetData = [9,8,9,8,8,7,8,9,8,7];
+    const emptyData = Array(targetData.length).fill(0);
+    let currentStep = 0;
+    const steps = 60; // Number of animation frames
+    let chart;
+
+    function animateChart() {
+      currentStep++;
+      const progress = currentStep / steps;
+      const animatedData = targetData.map((val, i) => val * progress);
+      chart.data.datasets[0].data = animatedData;
+      chart.update();
+      if (currentStep < steps) {
+        requestAnimationFrame(animateChart);
+      }
+    }
+
+    chart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: [
+          'SQL', 'Excel', 'Python', 'Visualization', 'Statistics',
+          'Machine Learning', 'Data Cleaning', 'Critical Thinking', 'Communication', 'Domain Knowledge'
+        ],
+        datasets: [{
+          label: 'Proficiency Level',
+          data: emptyData,
+          backgroundColor: 'rgba(52, 152, 219, 0.2)',
+          borderColor: '#3498db',
+          borderWidth: 2,
+          pointBackgroundColor: '#2980b9'
+        }]
+      },
+      options: {
+        animation: false, // We'll animate manually
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          r: {min: 0,max: 10,
+            ticks: { stepSize: 2, color: '#6c7a89' },
+            pointLabels: { color: '#2a3b4c', font: { size: 14 } }
+          }
+        }
+      }
+    });
+
+    // Start animation after a short delay
+    setTimeout(animateChart, 1000);
+
+    // Scroll reveal for table
+    function revealOnScroll() {
+      const table = document.getElementById('skillsTable');
+      const rect = table.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < windowHeight - 100) {
+        table.classList.add('revealed');
+        window.removeEventListener('scroll', revealOnScroll);
+      }
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    // Reveal if already in view on load
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>
